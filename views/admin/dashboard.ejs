@@ -1,0 +1,214 @@
+<% layout("layouts/boilerplate.ejs") %>
+<link rel="stylesheet" href="/css/dashboard.css" />
+
+<!-- Logic for extracting the first word in the name -->
+<% let adminName = currUser.name.split(" ")[0] %>
+<% adminName = adminName[0].toUpperCase() + adminName.slice(1) %>
+
+<!-- Greeting div -->
+<div class="greeting-div">
+  <div>
+    <h1 class="greeting-heading">Hello <%= adminName %> 👋</h1>
+    <p class="greeting-text mt-2">Welcome to hotelhub admin panel</p>
+  </div>
+  <div>
+    <img src="/assets/dashboard.svg" height="200px" alt="dashboard-image" />
+  </div>
+</div>
+
+<!-- Hotel information div -->
+<div class="hotel-info-container">
+  <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item hotel-carousel active" data-bs-interval="2000">
+        <img src="/uploads/<%= hotel.image[0] %>" height="200px" width="330px" class="rounded" alt="hotel-image.">
+      </div>
+      <div class="carousel-item hotel-carousel" data-bs-interval="2000">
+        <img src="/uploads/<%= hotel.image[1] %>" height="200px" width="330px" class="rounded" alt="hotel-image">
+      </div>
+      <div class="carousel-item hotel-carousel" data-bs-interval="2000">
+        <img src="/uploads/<%= hotel.image[2] %>" height="200px" width="330px" class="rounded" alt="hotel-image">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div>
+    <div class="d-flex justify-content-between align-items-start">
+      <a href="/explore/<%= hotel._id %>" class="text-decoration-underline">
+        <h2 class="hotel-name"><%= hotel.hotelName %></h2>
+      </a>
+      <a href="/admin/hotel/<%= hotel._id %>" class="btn footer-btn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Edit this hotel">
+        <i class="fa-solid fa-pen footer-icon"></i>
+      </a>
+    </div>
+    <div class="mt-3">
+      <p><%= hotel.description %></p>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <p class="mb-0">
+        <i class="fa-solid fa-location-dot" style="margin-left: 1px; margin-right: 5px"></i>
+        <b><%= hotel.location %>,&nbsp;<%= hotel.country %></b>
+      </p>
+      <div>
+        <% if(hotel.ratingAvg != 0) { %>
+        <p class="badge text-bg-primary mb-0 me-2">
+          <i class="fa-solid fa-star me-2"></i><b class="me-1"><%= hotel.ratingAvg.toFixed(1) %></b>rating
+        </p>
+        <% } %>
+
+        <% if(hotel.reviews.length) { %>
+        <p class="badge text-bg-primary mb-0">
+          <i class="fa-solid fa-thumbs-up me-2"></i><%= hotel.reviews.length %>&nbsp;&nbsp;
+          <% if(hotel.reviews.length === 1) { %>
+          review
+          <% }else { %>
+          reviews
+          <% } %>
+        </p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-div">
+  <div class="item item-1">
+    <div class="d-flex justify-content-between">
+      <h3 class="mb-5 sub-heading">Current Rooms</h3>
+      <a href="/admin/new-room" class="btn btn-outline-dark heading-btn d-flex align-items-center" style="height: 50px">
+        <i class="fa-solid fa-plus mx-2"></i>Create new room
+      </a>
+    </div>
+    <% if (hotel.rooms.length == 0) { %>
+    <div class="no-rooms-div mt-4">
+      <h5>You have no rooms for listing.</h5>
+      <a href="/admin/new-room">Create rooms now</a>
+    </div>
+    <% }else { %>
+    <% i = 1 %>
+    <% for(let room of hotel.rooms) { %>
+    <div class="custom-card rounded d-flex gap-3 mt-3">
+      <div id="carouselExampleInterval<%= i %>" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="2000">
+            <img src="/uploads/<%= room.roomImage[0] %>" height="170px" width="280px" class="rounded" alt="hotel-image.">
+          </div>
+          <div class="carousel-item" data-bs-interval="2000">
+            <img src="/uploads/<%=  room.roomImage[1] %>" height="170px" width="280px" class="rounded" alt="hotel-image">
+          </div>
+          <div class="carousel-item" data-bs-interval="2000">
+            <img src="/uploads/<%=  room.roomImage[2] %>" height="170px" width="280px" class="rounded" alt="hotel-image">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval<%= i %>" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval<%= i %>" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title mt-1"><%= room.roomType %></h4>
+        <p class="card-text mt-3">
+          <i class="fa-solid fa-people-group icon"></i><%= room.guest %>&nbsp;people,
+          <i class="fa-solid fa-bed icon"></i><%= room.bedroom %>&nbsp;bedroom ,
+          <img src="/assets/bed.png" class="icon" alt="bed-image" height="20px" /><%= room.bed %>
+        </p>
+        <p class="mt-3 mx-1">
+        <p>&#8377;<b>&nbsp;&nbsp;<%= room.price.toLocaleString('en-IN') %>&nbsp;/night</b></p>
+        </p>
+        <hr />
+        <div class="d-flex align-items-center justify-content-end">
+          <div class="d-flex">
+            <a href="/admin/room/<%= room._id %>" class="btn footer-btn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Edit this room">
+              <i class="fa-solid fa-pen footer-icon"></i>
+            </a>
+            <form method="POST" action="/admin/<%= hotel._id %>/room/<%= room._id %>?_method=DELETE">
+              <button type="submit" class="btn footer-btn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Delete this room">
+                <i class="fa-solid fa-trash footer-icon"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% i++ %>
+    <% } %>
+    <% } %>
+  </div>
+  <div class="item-2">
+    <div class="d-flex count-container">
+      <div class="item count-div">
+        <div class="circle"></div>
+        <h3><%= hotel.rooms.length %></h3>
+        <p>Rooms listed</p>
+      </div>
+      <div class="item count-div">
+        <div class="circle"></div>
+        <% let activeBookings = 0; %>
+        <% for (let booking of bookings) { %>
+        <% if(booking.status === "pending") { %>
+        <% activeBookings++; %>
+        <% } %>
+        <% } %>
+        <h3><%= activeBookings %></h3>
+        <p>Active bookings</p>
+      </div>
+    </div>
+    <div class="item">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <h3 class="mb-0 sub-heading">Recent bookings</h3>
+        <a class="mb-0 booking-link" href="/admin/bookings">Go to bookings>></a>
+      </div>
+      <% let isPendingBooking = 0; %>
+      <% for(let booking of bookings) { %>
+      <% if(booking.status === "pending") {%>
+      <% isPendingBooking++; %>
+      <% break; %>
+      <% } %>
+      <% } %>
+      <% if(isPendingBooking === 0){ %>
+      <div class="no-bookings-div mt-5">
+        <p>No bookings available right now.</hp>
+      </div>
+      <% } %>
+
+      <!-- Display bookings if any  -->
+      <% for(let booking of bookings) { %>
+      <% if(booking.status != "done") { %>
+      <a href="/admin/bookings">
+        <div class="mt-2 booking-div">
+          <div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <p class="mb-0">Booking id: <%= booking.bookingId %></p>
+              <p class="mb-0">Room: <%= booking.room.roomType %></p>
+            </div>
+            <hr>
+            <p class="mb-0">Total Bill:&nbsp;&nbsp;<b>&#8377;&nbsp;<%= booking.totalBill.toLocaleString('en-IN') %></b></p>
+          </div>
+        </div>
+      </a>
+      <% } %>
+      <% } %>
+    </div>
+  </div>
+</div>

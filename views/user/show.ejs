@@ -1,0 +1,402 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<link rel="stylesheet" href="/css/rating.css" />
+<link rel="stylesheet" href="/css/show.css" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet" />
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const coordinatesString = "<%- JSON.stringify(hotel.geometry.coordinates) %>"
+  const coordinates = JSON.parse(coordinatesString);
+</script>
+
+<div class="content-div mt-5">
+
+  <!-- Image section -->
+  <div class="d-flex image-container">
+    <div class="image-item1">
+      <img style="height: 100%; width: 100%; object-fit: cover" src="/uploads/<%= hotel.image[0] %>" alt="hotel-image" class="rounded" />
+    </div>
+    <div class="image-item2">
+      <img style="height: 100%; width: 100%; object-fit: cover" src="/uploads/<%= hotel.image[1] %>" alt="hotel-image" class="rounded" />
+      <img style="height: 100%; width: 100%; object-fit: cover" src="/uploads/<%= hotel.image[2] %>" alt="hotel-image" class="rounded" />
+    </div>
+  </div>
+
+  <!-- Heading section -->
+  <div class="d-flex align-items-center justify-content-between mt-3">
+    <h1 class="heading"><%= hotel.hotelName %></h1>
+    <% if (hotel.ratingAvg != 0) { %>
+    <div class="d-flex align-items-center">
+      (<i class="fa-solid fa-star me-1" style="font-size: 14px"></i><b class="me-1"><%= hotel.ratingAvg.toFixed(1) %></b>rating )
+    </div>
+    <% } %>
+  </div>
+
+  <div class="d-flex justify-content-between gap-5 mt-5">
+    <div class="gap-3" style="width: 48%">
+      <!-- Description & price -->
+      <div class="mb-5">
+        <p class="desc-text mb-4"><%= hotel.description %></p>
+      </div>
+
+      <!-- location -->
+      <h5 class="border-div mb-5">
+        <i class="fa-solid fa-location-dot me-3"></i><%=hotel.location %>,
+        <%=hotel.country %>
+      </h5>
+
+      <!-- Amenities -->
+      <% if (!currUser || currUser.role === "admin") { %>
+      <div class="mb-5">
+        <h4 class="sub-heading">What this place offers</h4>
+        <div class="d-flex amenities-container">
+          <% if (hotel.amenities.includes("Free wifi")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-wifi"></i>
+            <h4 class="d-inline">Free wifi</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Free parking")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-square-parking"></i>
+            <h4 class="d-inline">Free parking</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Air conditioning")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-snowflake" style="margin-left: 3px"></i>
+            <h4 class="d-inline">Air conditioning</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("TV")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-tv"></i>
+            <h4 class="d-inline">TV</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Pool")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-person-swimming"></i>
+            <h4 class="d-inline">Pool</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Room service")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-bell-concierge"></i>
+            <h4 class="d-inline">Room service</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Breakfast")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-mug-hot"></i>
+            <h4 class="d-inline">Breakfast</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Lunch")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-bowl-food"></i>
+            <h4 class="d-inline">Lunch</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Dinner")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-utensils new-icon"></i>
+            <h4 class="d-inline">Dinner</h4>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <% }else { %>
+      <div class="border-div mb-5">
+        <h4 class="sub-heading">What this place offers</h4>
+        <div class="d-flex amenities-container">
+          <% if (hotel.amenities.includes("Free wifi")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-wifi"></i>
+            <h4 class="d-inline">Free wifi</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Free parking")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-square-parking"></i>
+            <h4 class="d-inline">Free parking</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Air conditioning")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-snowflake" style="margin-left: 3px"></i>
+            <h4 class="d-inline">Air conditioning</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("TV")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-tv"></i>
+            <h4 class="d-inline">TV</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Pool")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-person-swimming"></i>
+            <h4 class="d-inline">Pool</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Room service")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-bell-concierge"></i>
+            <h4 class="d-inline">Room service</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Breakfast")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-mug-hot"></i>
+            <h4 class="d-inline">Breakfast</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Lunch")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-bowl-food"></i>
+            <h4 class="d-inline">Lunch</h4>
+          </div>
+          <% } %>
+          <% if (hotel.amenities.includes("Dinner")) { %>
+          <div class="amenities-div">
+            <i class="fa-solid fa-utensils new-icon"></i>
+            <h4 class="d-inline">Dinner</h4>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+
+
+      <!-- Review form -->
+      <% if (currUser && currUser.role != "admin") { %>
+      <div class="mb-5">
+        <h4 class="sub-heading">Leave a Review</h4>
+        <form method="POST" id="rating-form" action="/explore/<%= hotel._id %>/reviews" class="needs-validation" novalidate>
+          <div class="mt-5">
+            <fieldset class="starability-basic">
+              <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+              <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+              <label for="first-rate1" title="Terrible">1 star</label>
+              <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+              <label for="first-rate2" title="Not good">2 stars</label>
+              <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+              <label for="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+              <label for="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+              <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+            <div class="invalid-feedback" id="star-error">Please provide at least one star.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="comment" class="form-label mb-1">Write your comment</label>
+            <textarea name="review[comment]" id="comment" cols="30" rows="4" class="form-control" required></textarea>
+            <div class="invalid-feedback">The comment field cannot be empty.</div>
+          </div>
+
+          <% let isUserReviewed = false; %>
+          <% for (let review of hotel.reviews) { %>
+          <% if (review.author._id.equals(currUser._id)) { %>
+          <% isUserReviewed = true; %>
+          <% break; %>
+          <% } %>
+          <% } %>
+
+          <% if (isUserReviewed) { %>
+          <a class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Post your review</a>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p>You already created a review.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn hotelhub-btn-black" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% }else { %>
+          <input type="submit" class="btn btn-outline-dark" value="Post your review" />
+          <% } %>
+        </form>
+      </div>
+      <% }else { %>
+        <div class="border-top">
+          <p class="mt-4 mb-4">Please <a href="/login">login</a> to give a review.</p>
+        </div>
+      <% } %>
+      <!-- Display no review image if no reviews exits -->
+      <% if (hotel.reviews.length === 0) { %>
+      <div class="border-top">
+        <h4 class="sub-heading mt-5">All Reviews</h4>
+        <div style="height: 380px; width: 100%">
+          <img src="/assets/no-review.png" style="object-fit: cover; width: 100%; height: 100%" alt="no-reviews-image" />
+        </div>
+      </div>
+      <% } %>
+    </div>
+
+    <!-- Display rooms if exits -->
+
+    <% if(hotel.rooms.length) { %>
+    <div style="width: 45%">
+      <h4 class="sub-heading mb-5">Available rooms</h4>
+      <% let i = 1 %>
+
+      <% for(let room of hotel.rooms) { %>
+      <div class="room-card mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="mb-0 room-card-heading"><%= room.roomType %></h5>
+          <p class="mb-0">&#8377;<b>&nbsp;&nbsp;<%= room.price.toLocaleString('en-IN') %>&nbsp;/night</b></p>
+        </div>
+        <hr>
+        <p class="card-text mt-3">
+          <i class="fa-solid fa-people-group icon me-2"></i><%= room.guest %>&nbsp;people,&nbsp;&nbsp;
+          <i class="fa-solid fa-bed icon me-2"></i><%= room.bedroom %>&nbsp;bedroom,&nbsp;&nbsp;
+          <img src="/assets/bed.png" class="icon me-1" alt="bed-image" height="20px" /><%= room.bed %>
+        </p>
+        <hr>
+        <div class="room-card-btns">
+
+          <button class="view-image-btn" data-bs-toggle="modal" data-bs-target="#exampleModal<%= i %>">View images</button>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal<%= i %>" tabindex="-1" aria-labelledby="exampleModalLabel<%= i %>" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <!-- Carousel part -->
+                  <div id="carouselExampleInterval<%= i %>" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                      <div class="carousel-item hotel-carousel active" data-bs-interval="3500">
+                        <img src="/uploads/<%= room.roomImage[0] %>" width="100%" height="280px" class="rounded" alt="hotel-image.">
+                      </div>
+                      <div class="carousel-item hotel-carousel" data-bs-interval="3500">
+                        <img src="/uploads/<%=  room.roomImage[1] %>" width="100%" height="280px" class="rounded" alt="hotel-image">
+                      </div>
+                      <div class="carousel-item hotel-carousel" data-bs-interval="3500">
+                        <img src="/uploads/<%=  room.roomImage[2] %>" width="100%" height="280px" class="rounded" alt="hotel-image">
+                      </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval<%= i %>" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval<%= i %>" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn hotelhub-btn-black" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Display this button if user role is user -->
+          <% if (!currUser || currUser && currUser.role === "user") { %>
+          <a href="/explore/<%= hotel._id %>/<%= room._id %>/booking" class="btn hotelhub-btn-red">Book now</a>
+          <% } %>
+        </div>
+      </div>
+      <% i++; %>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+
+  <!-- Display all reviews if exits -->
+  <% if (hotel.reviews.length) { %>
+
+  <div class="border-top">
+    <div class="d-flex justify-content-between align-items-center mt-5">
+      <h4 class="amenities-heading mb-0">All Reviews</h4>
+      <h6 class="mb-0">
+        <i class="fa-solid fa-thumbs-up"></i>
+        <span class="ms-2">
+          <%=hotel.reviews.length %>
+          <% if(hotel.reviews.length === 1) { %>
+          review
+          <% }else { %>
+          reviews
+          <% } %>
+        </span>
+      </h6>
+    </div>
+
+    <div class="d-flex justify-content-between flex-wrap gap-5 mt-5">
+
+      <% for (review of hotel.reviews) { %>
+
+      <!-- Logic to extract first letter of name and title for profile -->
+      <% let authorName = review.author.name; %>
+      <% let authorResult = authorName[0]; %>
+      <% for (let i=1; i < authorName.length; i++) { %>
+      <% if(authorName[i]==" ") { %>
+      <% authorResult=authorResult+authorName[i+1]; %>
+      <% break;  %>
+      <% } %>
+      <% } %>
+
+      <div class="review-card">
+        <div class="d-flex align-items-center gap-3">
+          <div class="author-div">
+            <%=authorResult.toUpperCase() %>
+          </div>
+
+          <!-- Logic for fullname capitalize -->
+          <% let fullName = review.author.name; %>
+          <% let nameArray = fullName.split(" "); %> <% let capitalizedArray=[]; %>
+          <% for (let i=0; i < nameArray.length; i++) { %>
+          <% capitalizedArray.push(nameArray[i].charAt(0).toUpperCase() + nameArray[i].slice(1) ); %>
+          <% } %>
+          <% let capitalizedResult=capitalizedArray.join(" "); %>
+
+          <h5 class="mb-0 review-author-name"><%=capitalizedResult %></h5>
+          <% if (currUser && currUser._id.equals(review.author._id)) { %>
+          <span class="badge text-bg-primary ms-3">Your review</span>
+          <% } %>
+        </div>
+        <div class="review-body mt-2">
+          <div class="d-flex justify-content-between">
+            <p class="starability-result ms-5" data-rating="<%= review.rating %>"></p>
+            <% if (currUser && currUser._id.equals(review.author._id)) { %>
+            <form method="POST" action="/explore/<%= hotel._id %>/reviews/<%= review._id %>?_method=DELETE">
+              <button class="me-3 btn" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Delete this review" type="submit">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+            <% } %>
+          </div>
+          <p class="card-text ms-5"><%=review.comment %></p>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+
+  <!-- Map display functionality -->
+  <div class="border-top mt-4 pt-4">
+    <h4 class="sub-heading mt-4">Where you will be</h4>
+    <div id="map"></div>
+  </div>
+</div>
+
+<script src="/js/map.js"></script>
+<script src="/js/validation.js"></script>
+<script src="/js/star.js"></script>

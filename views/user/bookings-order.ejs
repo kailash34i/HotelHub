@@ -1,0 +1,261 @@
+<% layout("layouts/boilerplate.ejs") %>
+<link rel="stylesheet" href="/css/bookings-order.css">
+
+<% bookings = bookings.reverse(); %>
+
+<div class="mt-5">
+  <h2 class="mb-5">Your current bookings</h2>
+  <% let i = 1; %>
+  <% let k = 0; %>
+    <% for (let booking of bookings) { %>
+    <% if (booking.status === "pending") { %>
+    <% k++ %>
+    <div class="d-flex align-items-center justify-content-between mt-4 booking-div">
+      <div class="booking-div-child">
+        <p>Booking id:</p>
+        <h6><%= booking.bookingId %></h6>
+      </div>
+      <div class="booking-div-child">
+        <p>Hotel name:</p>
+        <h6><%= booking.hotel.hotelName %></h6>
+      </div>
+      <div class="booking-div-child">
+        <p>Room type:</p>
+        <h6><%= booking.room.roomType %></h6>
+      </div>
+      <% const checkIn = `${booking.checkInDate.getDate()}/${booking.checkInDate.getMonth() + 1}/${booking.checkInDate.getFullYear()}`; %>
+      <% const checkOut = `${booking.checkOutDate.getDate()}/${booking.checkOutDate.getMonth() + 1}/${booking.checkOutDate.getFullYear()}`; %>
+      <div class="booking-div-child">
+        <p>Check in:</p>
+        <h6><%= checkIn %></h6>
+      </div>
+      <div class="booking-div-child">
+        <p>Check out:</p>
+        <h6><%= checkOut %></h6>
+      </div>
+      <div class="booking-div-child">
+        <p>Total bill:</p>
+        <h6>&#8377;&nbsp;<%= booking.totalBill.toLocaleString('en-IN') %></h6>
+      </div>
+      <div>
+        <button class="btn hotelhub-btn-red me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop<%= i %>">View in details</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop<%= i %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content" id="printableArea<%= i %>">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Booking details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="d-flex align-items-center justify-content-left gap-4 flex-wrap">
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Booking id</p>
+                    <h6 class="d-inline bg-red"><%= booking.bookingId %></h6>
+                  </div>
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Transaction id</p>
+                    <h6 class="d-inline bg-red"><%= booking.transactionId %></h6>
+                  </div>
+                </div>
+                <hr>
+                <div class="d-flex align-items-center justify-content-left gap-3 flex-wrap">
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Name:</p>
+                    <h6 class="d-inline"><%= booking.name %></h6>
+                  </div>
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Email:</p>
+                    <h6 class="d-inline"><%= booking.email %></h6>
+                  </div>
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Phone no:</p>
+                    <h6 class="d-inline"><%= booking.phNo %></h6>
+                  </div>
+                </div>
+                <hr>
+                <div class="d-flex align-items-center justify-content-left gap-3 flex-wrap">
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Hotel:</p>
+                    <h6 class="d-inline"><%= booking.hotel.hotelName %></h6>
+                  </div>
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Room type:</p>
+                    <h6 class="d-inline"><%= booking.room.roomType %></h6>
+                  </div>
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Price:</p>
+                    <h6 class="d-inline"><%= booking.room.price.toLocaleString() %>&nbsp;/night</h6>
+                  </div>
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Check in:</p>
+                    <h6 class="d-inline"><%= checkIn %></h6>
+                  </div>
+                  <div class="booking-div-child">
+                    <p class="d-inline me-2">Check out:</p>
+                    <h6 class="d-inline"><%= checkOut %></h6>
+                  </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                  <p><b>Total Bill: </b></p>
+                  <h5>&#8377;&nbsp;&nbsp;<b><%= booking.totalBill.toLocaleString('en-IN') %></b></h5>
+                </div>
+                <div class="mt-4 no-print" style="text-align: center;">
+                  <b>&copy;</b> HotelHub.Inc, 2024
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn hotelhub-btn-red printButton" data-target="printableArea<%= i %>">Print</button>
+                <button type="button" class="btn hotelhub-btn-black" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% i++ %>
+  <% } %>
+  <% } %>
+  <% if (k === 0) { %>
+  <div class="pt-3 mb-5" style="text-align: center;">
+    <p class="bg-red d-inline">You don't have any current bookings.</p>
+  </div>
+  <% } %>
+  <hr class="mt-5 mb-5">
+  <% let j = 0; %>
+  <h2 class="mb-5">Your previous bookings</h2>
+  <% for (let booking of bookings) { %>
+  <% if (booking.status === "done") { %>
+  <% i++; %>
+  <% j++; %>
+  <div class="d-flex align-items-center justify-content-between mt-4 booking-div">
+    <div class="booking-div-child">
+      <p>Booking id:</p>
+      <h6><%= booking.bookingId %></h6>
+    </div>
+    <div class="booking-div-child">
+      <p>Hotel name:</p>
+      <h6><%= booking.hotel.hotelName %></h6>
+    </div>
+    <div class="booking-div-child">
+      <p>Room type:</p>
+      <h6><%= booking.room.roomType %></h6>
+    </div>
+    <% const checkIn = `${booking.checkInDate.getDate()}/${booking.checkInDate.getMonth() + 1}/${booking.checkInDate.getFullYear()}`; %>
+    <% const checkOut = `${booking.checkOutDate.getDate()}/${booking.checkOutDate.getMonth() + 1}/${booking.checkOutDate.getFullYear()}`; %>
+    <div class="booking-div-child">
+      <p>Check in:</p>
+      <h6><%= checkIn %></h6>
+    </div>
+    <div class="booking-div-child">
+      <p>Check out:</p>
+      <h6><%= checkOut %></h6>
+    </div>
+    <div class="booking-div-child">
+      <p>Total price:</p>
+      <h6>&#8377;&nbsp;<%= booking.totalBill.toLocaleString('en-IN') %></h6>
+    </div>
+    <div>
+      <button class="btn hotelhub-btn-red me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop<%= i %>">View in details</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop<%= i %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content" id="printableArea<%= i %>">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Booking details</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="d-flex align-items-center justify-content-left gap-4 flex-wrap">
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Booking id</p>
+                  <h6 class="d-inline bg-red"><%= booking.bookingId %></h6>
+                </div>
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Transaction id</p>
+                  <h6 class="d-inline bg-red"><%= booking.transactionId %></h6>
+                </div>
+              </div>
+              <hr>
+              <div class="d-flex align-items-center justify-content-left gap-3 flex-wrap">
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Name:</p>
+                  <h6 class="d-inline"><%= booking.name %></h6>
+                </div>
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Email:</p>
+                  <h6 class="d-inline"><%= booking.email %></h6>
+                </div>
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Phone no:</p>
+                  <h6 class="d-inline"><%= booking.phNo %></h6>
+                </div>
+              </div>
+              <hr>
+              <div class="d-flex align-items-center justify-content-left gap-3 flex-wrap">
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Hotel:</p>
+                  <h6 class="d-inline"><%= booking.hotel.hotelName %></h6>
+                </div>
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Room type:</p>
+                  <h6 class="d-inline"><%= booking.room.roomType %></h6>
+                </div>
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Price:</p>
+                  <h6 class="d-inline"><%= booking.room.price.toLocaleString("en-IN") %>&nbsp;/night</h6>
+                </div>
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Check in:</p>
+                  <h6 class="d-inline"><%= checkIn %></h6>
+                </div>
+                <div class="booking-div-child">
+                  <p class="d-inline me-2">Check out:</p>
+                  <h6 class="d-inline"><%= checkOut %></h6>
+                </div>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-between">
+                <p><b>Total Bill: </b></p>
+                <h5>&#8377;&nbsp;&nbsp;<b><%= booking.totalBill.toLocaleString("en-IN") %></b></h5>
+              </div>
+              <div class="mt-4 no-print" style="text-align: center;">
+                <b>&copy;</b> HotelHub.Inc, 2024
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn hotelhub-btn-black" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% } %>
+  <% } %>
+  <% if (j === 0) { %>
+  <div class="pt-3 mb-5" style="text-align: center;">
+    <p class="bg-red d-inline">You don't have any previous bookings.</p>
+  </div>
+  <% } %>
+</div>
+
+<!-- Logic for printing -->
+
+<div id="printableContent" style="display:none;"></div>
+<script>
+  document.querySelectorAll('.printButton').forEach(button => {
+    button.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const content = document.getElementById(targetId).innerHTML;
+      const printableContent = document.getElementById('printableContent');
+
+      printableContent.innerHTML = content;
+
+      window.print();
+    });
+  });
+</script>

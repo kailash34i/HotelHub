@@ -1,0 +1,100 @@
+<nav class="navbar navbar-expand-md">
+  <div class="container">
+    <a class="navbar-brand" href="/explore">
+      <i class="fa-solid fa-hotel"></i>
+      <span class="nav-hotelhub">HotelHub</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <div class="navbar-nav ms-auto gap-3">
+        <a class="nav-link d-flex align-items-center nav-item-explore" href="/explore">Explore</a>
+        <% if (!currUser || currUser && currUser.role === "user") { %>
+        <a class="nav-link d-flex align-items-center nav-item-admin" href="/admin">HotelHub for business</a>
+        <% } %>
+        <% if (currUser && currUser.role === "admin") { %>
+        <a class="nav-link d-flex align-items-center nav-item-admin" href="/admin/dashboard">HotelHub for business</a>
+        <% } %>
+      </div>
+
+      <% if(typeof hideSomeNavLink === "undefined") { %>
+      <div class="navbar-nav ms-auto gap-3">
+
+        <% if(!currUser) { %>
+        <a class="nav-link btn hotelhub-btn-black" href="/login">Login</a>
+        <a class="nav-link btn hotelhub-btn-red" href="/signup">Signup</a>
+        <% } %>
+
+        <% if(currUser) { %>
+
+        <% if(currUser.role === "user") { %>
+        <div class="dropdown">
+          <button class="btn d-flex align-items-center gap-3 dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-bars text-dark"></i>
+            <div class="profile-div">
+              <!-- Logic for name & title first letter -->
+              <% let name = currUser.name; %>
+              <% let result = name[0]; %>
+              <% for(let i = 1; i<name.length; i++) { %>
+              <% if(name[i] == " ") { %>
+              <% result = result+name[i+1]; %>
+              <% break; %>
+              <% } %>
+              <% } %>
+              <%= result.toUpperCase() %>
+            </div>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="">Profile<span class="badge text-bg-primary role-badge">User</span></a>
+            </li>
+            <li><a class="dropdown-item" href="/bookings">Bookings</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item" href="/logout"><b>Log out</b></a>
+            </li>
+          </ul>
+        </div>
+        <% } %>
+
+        <% if(currUser.role === "admin") { %>
+        <div class="dropdown">
+          <button class="btn d-flex align-items-center gap-3 dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-bars text-dark"></i>
+            <div class="profile-div">
+              <!-- Logic for name & title first letter -->
+              <% let name = currUser.name; %>
+              <% let result = name[0]; %>
+              <% for(let i = 1; i<name.length; i++) { %>
+              <% if(name[i] == " ") { %>
+              <% result = result+name[i+1]; %>
+              <% break; %>
+              <% } %>
+              <% } %>
+              <%= result.toUpperCase() %>
+            </div>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="">Profile<span class="badge text-bg-danger role-badge">Admin</span></a>
+            </li>
+            <li><a class="dropdown-item" href="/admin/bookings">Bookings</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item" href="/logout"><b>Log out</b></a>
+            </li>
+          </ul>
+        </div>
+        <% } %>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,264 @@
+<% layout("layouts/boilerplate.ejs") %>
+<link rel="stylesheet" href="/css/index.css" />
+
+<div class="search">
+  <form action="/search" class="d-flex search-form justify-content-center" role="search">
+    <input class="form-control me-2 search-input" type="search" placeholder="Search destinations" name="q" />
+    <button class="btn search-btn" type="submit">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </form>
+</div>
+
+<div class="filters">
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "explore") { %>
+  <a href="/explore" class="filter b-bottom"><i class="fa-solid fa-compass"></i>
+    <p class="f-text">Explore</p>
+  </a>
+  <% }else { %>
+  <a href="/explore" class="filter"><i class="fa-solid fa-compass"></i>
+    <p class="f-text">Explore</p>
+  </a>
+  <% } %>
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "popular") {%>
+  <a href="/explore/popular" class="filter b-bottom"><i class="fa-solid fa-fire"></i>
+    <p class="f-text">Popular</p>
+  </a>
+  <% } else { %>
+  <a href="/explore/popular" class="filter"><i class="fa-solid fa-fire"></i>
+    <p class="f-text">Popular</p>
+  </a>
+  <% } %>
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "luxury") { %>
+  <a href="/explore/luxury" class="filter b-bottom"><i class="fa-solid fa-crown"></i>
+    <p class="f-text">Luxury</p>
+  </a>
+  <% }else { %>
+  <a href="/explore/luxury" class="filter"><i class="fa-solid fa-crown"></i>
+    <p class="f-text">Luxury</p>
+  </a>
+  <% } %>
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "lakefront") { %>
+  <a href="/explore/lakefront" class="filter b-bottom">
+    <i class="fa-solid fa-water"></i>
+    <p class="f-text">Lakefront</p>
+  </a>
+  <% }else { %>
+  <a href="/explore/lakefront" class="filter">
+    <i class="fa-solid fa-water"></i>
+    <p class="f-text">Lakefront</p>
+  </a>
+  <% } %>
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "mountain") { %>
+  <a href="/explore/mountain" class="filter b-bottom">
+    <i class="fa-solid fa-mountain"></i>
+    <p class="f-text">Mountain</p>
+  </a>
+  <% }else { %>
+  <a href="/explore/mountain" class="filter">
+    <i class="fa-solid fa-mountain"></i>
+    <p class="f-text">Mountain</p>
+  </a>
+  <% } %>
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "beach") { %>
+  <a href="/explore/beach" class="filter b-bottom">
+    <i class="fa-solid fa-umbrella-beach"></i>
+    <p class="f-text">Beach</p>
+  </a>
+  <% }else { %>
+  <a href="/explore/beach" class="filter">
+    <i class="fa-solid fa-umbrella-beach"></i>
+    <p class="f-text">Beach</p>
+  </a>
+  <% } %>
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "amazing-views") { %>
+  <a href="/explore/amazing-views" class="filter b-bottom">
+    <i class="fa-solid fa-mountain-sun"></i>
+    <p class="f-text">Amazing views</p>
+  </a>
+  <% }else { %>
+  <a href="/explore/amazing-views" class="filter">
+    <i class="fa-solid fa-mountain-sun"></i>
+    <p class="f-text">Amazing views</p>
+  </a>
+  <% } %>
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "amazing-pools") { %>
+  <a href="/explore/amazing-pools" class="filter b-bottom">
+    <i class="fa-solid fa-person-swimming"></i>
+    <p class="f-text">Amazing pools</p>
+  </a>
+  <% }else { %>
+  <a href="/explore/amazing-pools" class="filter">
+    <i class="fa-solid fa-person-swimming"></i>
+    <p class="f-text">Amazing pools</p>
+  </a>
+  <% } %>
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "cities") { %>
+  <a href="/explore/cities" class="filter b-bottom">
+    <i class="fa-solid fa-tree-city"></i>
+    <p class="f-text">Cities</p>
+  </a>
+  <% }else { %>
+  <a href="/explore/cities" class="filter">
+    <i class="fa-solid fa-tree-city"></i>
+    <p class="f-text">Cities</p>
+  </a>
+  <% } %>
+
+  <% if(typeof filterKey !== 'undefined' && filterKey == "countryside") { %>
+  <a href="/explore/countryside" class="filter b-bottom">
+    <i class="fa-solid fa-mountain-city"></i>
+    <p class="f-text">Countryside</p>
+  </a>
+  <% }else { %>
+  <a href="/explore/countryside" class="filter">
+    <i class="fa-solid fa-mountain-city"></i>
+    <p class="f-text">Countryside</p>
+  </a>
+  <% } %>
+
+  <!-- Fillters Functionality -->
+  <button class="btn tax-toggle" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <i class="fa-solid fa-sliders" style="margin-right: 18px"></i>
+    <span>Filters</span>
+  </button>
+
+  <!-- Modal to render fillter form-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel">Apply filters</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/explore/filter">
+            <div class="mb-3">
+              <label for="location" class="form-label"><b>Location</b></label>
+              <input type="text" class="form-control" id="location" name="location" placeholder="Enter location here">
+            </div>
+            <div class="mb-3">
+              <label for="country" class="form-label"><b>Country</b></label>
+              <input type="text" class="form-control" id="country" name="country" placeholder="Enter country here">
+            </div>
+            <hr>
+            <b>Price:</b>
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" value="1000-5000" name="priceRange[]" id="price1">
+              <label class="form-check-label ms-2" for="price1">&#8377; 1,000 - &#8377; 5,000</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="5000-10000" name="priceRange[]" id="price2">
+              <label class="form-check-label ms-2" for="price2">&#8377; 5,000 - &#8377; 10,000</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="10000-15000" name="priceRange[]" id="price3">
+              <label class="form-check-label ms-2" for="price3">&#8377; 10,000 - &#8377; 15,000</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="15000-above" name="priceRange[]" id="price4">
+              <label class="form-check-label ms-2" for="price4">&#8377; 15,000 or above</label>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-end gap-3 mt-4">
+              <button type="submit" class="btn hotelhub-btn-red">Apply filters</button>
+              <button type="button" class="btn hotelhub-btn-black" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% i = 1 %>
+
+<div class="row justify-content-center gap-3">
+  <% for(let hotel of allHotels) { %>
+  <div class="card hotel-card col-3">
+    <a href="/explore/<%= hotel._id %>">
+      <% if(hotel.ratingAvg >= 4.5 && hotel.reviews.length > 5 ) { %>
+      <span class="badge text-bg-dark trending-badge"><i class="fa-solid fa-fire me-1"></i>Popular</span>
+      <% } %>
+
+      <!-- Carousel for card image -->
+
+      <div id="carouselExampleInterval<%= i %>" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item hotel-carousel active" data-bs-interval="3000">
+            <img src="/uploads/<%= hotel.image[0] %>" class="card-img-top" alt="hotel-image.">
+          </div>
+          <div class="carousel-item hotel-carousel" data-bs-interval="3000">
+            <img src="/uploads/<%= hotel.image[1] %>" class="card-img-top" alt="hotel-image">
+          </div>
+          <div class="carousel-item hotel-carousel" data-bs-interval="3000">
+            <img src="/uploads/<%= hotel.image[2] %>" class="card-img-top" alt="hotel-image">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval<%= i %>" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval<%= i %>" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="card-hotel-name"><b><%= hotel.hotelName %></b></h5>
+          <% if(hotel.ratingAvg != 0) { %>
+          <p class="card-text">
+            <span class="badge text-bg-danger me-1">
+              <i class="fa-solid fa-star me-1"></i><%= hotel.ratingAvg.toFixed(1) %>
+            </span>
+          </p>
+          <% } %>
+        </div>
+
+        <p class="card-text mt-1">
+          <i class="fa-solid fa-location-dot" style="margin-left: 1px; margin-right: 5px"></i>
+          <%= hotel.location %>,&nbsp; <%= hotel.country %>
+        </p>
+
+        <!-- Print price in the card -->
+        <% if(hotel.rooms.length === 1) { %>
+        <p class="card-text mt-3">
+          &#8377;&nbsp;&nbsp;<b><%= hotel.rooms[0].price.toLocaleString('en-IN') %>&nbsp;/night</b>
+        </p>
+        <% }else { %>
+        <!-- Lowest and highest price finding -->
+        <% let prices = [] %>
+        <% for(let room of hotel.rooms) { %>
+        <% prices.push(room.price) %>
+        <% } %>
+        <% const min = Math.min(...prices); %>
+        <% const max = Math.max(...prices); %>
+
+        <p class="card-text mt-3">
+          &#8377;&nbsp;&nbsp;<b><%= min.toLocaleString('en-IN') %> - <%= max.toLocaleString('en-IN') %>&nbsp;/night</b>
+        </p>
+
+        <% } %>
+      </div>
+    </a>
+  </div>
+
+  <% i++ %>
+  <% } %>
+</div>

@@ -1,0 +1,258 @@
+<% layout("layouts/boilerplate.ejs") %>
+<link rel="stylesheet" href="/css/setup.css" />
+
+<div class="mt-3">
+  <div class="form-heading">
+    <div>
+      <h1 class="new-heading">Setup your account</h1>
+      <p class="ms-1">Setup you account by providing hotel information.</p>
+    </div>
+    <div>
+      <img src="/assets/setup.svg" height="200px" alt="image" />
+    </div>
+  </div>
+
+  <div class="form-container">
+    <form method="POST" action="/admin/setup" novalidate class="needs-validation" enctype="multipart/form-data">
+      <div class="form-section mb-3">
+        <label for="input1" class="form-label mb-3">
+          <h5 class="custom-label">Title</h5>
+        </label>
+        <input type="text" class="form-control custom-input" id="input1" name="hotel[hotelName]" placeholder="Your hotel name" required />
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback">Invalid title</div>
+      </div>
+
+      <div class="form-section mb-3">
+        <label for="input2" class="mb-3">
+          <h5 class="custom-label">
+            Description<i class="fa-solid fa-pen new-icon"></i>
+          </h5>
+        </label>
+        <textarea name="hotel[description]" placeholder="Enter description" rows="5" class="form-control" id="input2" required></textarea>
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback">Invalid description</div>
+      </div>
+
+      <div class="form-section mb-3">
+        <div class="mb-5">
+          <label for="imageInput1" class="form-label mb-5">
+            <h5 class="custom-label">
+              Upload first image<i class="fa-regular fa-image new-icon"></i>
+            </h5>
+          </label>
+          <div>
+            <div>
+              <img src="" height="200px" width="320px" class="rounded d-hidden" id="previewImage1" />
+            </div>
+            <div>
+              <input type="file" id="imageInput1" class="form-control custom-input" name="hotel[image]" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <label for="imageInput2" class="form-label mb-5">
+            <h5 class="custom-label">
+              Upload second image<i class="fa-regular fa-image new-icon"></i></h5>
+          </label>
+          <div>
+            <div>
+              <img src="" height="200px" width="320px" class="rounded d-hidden" id="previewImage2" />
+            </div>
+            <div>
+              <input type="file" id="imageInput2" class="form-control custom-input" name="hotel[image]" required />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label for="imageInput3" class="form-label mb-5">
+            <h5 class="custom-label">
+              Upload third image<i class="fa-regular fa-image new-icon"></i></h5>
+          </label>
+          <div>
+            <div>
+              <img src="" height="200px" width="320px" class="rounded d-hidden" id="previewImage3" />
+            </div>
+            <div>
+              <input type="file" id="imageInput3" class="form-control custom-input" name="hotel[image]" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback">Invalid hotel image</div>
+      </div>
+
+      <div class="group-input">
+
+
+        <div class="form-section mb-3 item">
+          <label for="input7" class="form-label mb-3">
+            <h5 class="custom-label">
+              Location<i class="fa-solid fa-location-dot new-icon"></i>
+            </h5>
+          </label>
+          <input type="text" id="input7" class="form-control custom-input" name="hotel[location]" placeholder="Enter location" required />
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback">Invalid location</div>
+        </div>
+
+        <div class="form-section mb-3 item">
+          <label for="input8" class="form-label mb-3">
+            <h5 class="custom-label">
+              Country<i class="fa-solid fa-globe new-icon"></i>
+            </h5>
+          </label>
+          <input type="text" id="input8" class="form-control custom-input" name="hotel[country]" placeholder="Enter country" required />
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback">Invalid country</div>
+        </div>
+      </div>
+
+      <div class="form-section mb-3">
+        <h5 class="custom-label mb-5">Choose your hotel amenities</h5>
+        <div class="amenities-container">
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[amenities]" value="Free wifi" id="flexCheckDefault1" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheckDefault1">
+              Free wifi
+              <i class="fa-solid fa-wifi new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[amenities]" value="Free parking" id="flexCheckDefault2" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheckDefault2">
+              Free parking
+              <i class="fa-solid fa-square-parking new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[amenities]" value="Air conditioning" id="flexCheckDefault3" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheckDefault3">
+              Air conditioning
+              <i class="fa-solid fa-snowflake new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[amenities]" value="TV" id="flexCheckDefault4" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheckDefault4">
+              TV
+              <i class="fa-solid fa-tv new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[amenities]" value="Pool" id="flexCheckDefault5" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheckDefault5">
+              Pool
+              <i class="fa-solid fa-person-swimming new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[amenities]" value="Room service" id="flexCheckDefault6" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheckDefault6">
+              Room service
+              <i class="fa-solid fa-bell-concierge new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[amenities]" value="Breakfast" id="flexCheckDefault7" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheckDefault7">
+              Breakfast
+              <i class="fa-solid fa-mug-hot new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[amenities]" value="Lunch" id="flexCheckDefault8" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheckDefault8">
+              Lunch
+              <i class="fa-solid fa-bowl-food new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[amenities]" value="Dinner" id="flexCheckDefault9" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheckDefault9">
+              Dinner
+              <i class="fa-solid fa-utensils new-icon"></i>
+            </label>
+          </div>
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+      <div class="form-section mb-3">
+        <h5 class="custom-label mb-5">Choose your category</h5>
+        <div class="amenities-container">
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[category]" value="Luxury" id="flexCheck1" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheck1">
+              Luxury
+              <i class="fa-solid fa-crown new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[category]" value="Lakefront" id="flexCheck2" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheck2">
+              Lakefront
+              <i class="fa-solid fa-water new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[category]" value="Mountain" id="flexCheck3" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheck3">
+              Mountain
+              <i class="fa-solid fa-mountain new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[category]" value="Beach" id="flexCheck4" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheck4">
+              Beach
+              <i class="fa-solid fa-umbrella-beach new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[category]" value="Amazing views" id="flexCheck5" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheck5">
+              Amazing views
+              <i class="fa-solid fa-mountain-sun new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[category]" value="Amazing pools" id="flexCheck6" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheck6">
+              Amazing pools
+              <i class="fa-solid fa-person-swimming new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[category]" value="Cities" id="flexCheck7" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheck7">
+              Cities
+              <i class="fa-solid fa-tree-city new-icon"></i>
+            </label>
+          </div>
+          <div class="form-check custom-checkbox-div">
+            <input class="form-check-input custom-checkbox" type="checkbox" name="hotel[category]" value="Countryside" id="flexCheck8" />
+            <label class="form-check-label custom-checkbox-label" for="flexCheck8">
+              Countryside
+              <i class="fa-solid fa-mountain-city new-icon"></i>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-btn-div">
+        <button type="submit" class="btn btn-lg hotelhub-btn-red">
+          Setup now
+        </button>
+        <a class="btn btn-lg btn-outline-dark" href="/admin/dashboard">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/create-image-manipulation.js"></script>
+<script src="/js/validation.js"></script>

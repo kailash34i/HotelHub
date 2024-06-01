@@ -1,0 +1,189 @@
+.nav-item-explore {
+  color: #ff385c;
+}
+
+/* Search Bar */
+
+.search {
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+}
+
+.search-input {
+  padding-left: 50px;
+  padding-right: 50px;
+  border: 1px solid rgb(0, 0, 0);
+  width: 60rem;
+  height: 3rem;
+  box-shadow: 0px 2px 10px 0px rgb(149, 149, 149);
+  border-radius: 50px;
+}
+
+.search-input:focus {
+  border: 1px solid black;
+  box-shadow: 0px 2px 10px 0px rgb(149, 149, 149);
+  height: 3.8rem;
+  font-size: 18px;
+}
+
+.search-btn {
+  padding: 0px 30px;
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: 0px 2px 10px 0px rgb(149, 149, 149);
+  border-radius: 80px;
+}
+
+.search-btn:hover {
+  background-color: #0c0c0c;
+  color: #ebebeb;
+}
+
+/* Filter */
+
+.filters {
+  padding: 15px 100px 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters a {
+  text-decoration: none;
+  color: rgb(0, 0, 0, 0.8);
+}
+
+.filters a:hover{
+  color: rgb(0, 0, 0, 1);
+}
+
+.f-text {
+  margin-bottom: 5px;
+}
+
+.filter {
+  text-align: center;
+  opacity: 0.8;
+  font-size: 14px;
+  border: none;
+  background-color: white;
+}
+
+.b-bottom {
+  border-bottom: 2px solid rgb(0, 0, 0, 0.8);
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+  border-bottom: 2px solid rgb(0, 0, 0, 1);
+}
+
+.modal-title {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.tax-toggle {
+  border: 1px solid black;
+  box-shadow: 0px 2px 5px 0px rgb(149, 149, 149);
+  border-radius: 12px;
+  padding: 0px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.tax-toggle:hover {
+  border: 1px solid black;
+  box-shadow: 0px 2px 10px rgb(149, 149, 149);
+
+}
+
+.form-check-input {
+  border: 1px solid rgb(72, 72, 72);
+  margin-left: 20px !important;
+}
+
+.form-check label {
+  cursor: pointer;
+}
+
+.form-check-input:hover {
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: black;
+}
+
+.form-check-input:focus {
+  box-shadow: none;
+  border: 1px solid black;
+}
+
+/* Card Section */
+
+.hotel-card {
+  border: 1px solid rgb(0, 0, 0, 0.1);
+  box-shadow: 0px 3px 5px rgb(0, 0, 0, 0.4);
+  border-radius: 13px;
+  padding: 13px;
+  width: 19.4rem;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.hotel-card:hover {
+  transform: scale3d(1.02, 1.02, 1);
+}
+
+.card a {
+  text-decoration: none;
+  color: rgb(42, 42, 42);
+}
+
+.card-img-top {
+  border-radius: 1rem;
+  width: 100%;
+  height: 16rem;
+  object-fit: cover;
+}
+
+.hotel-carousel {
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.carousel-indicators button {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+}
+
+.card-body {
+  padding: 1rem 0rem 0rem 0.3rem;
+}
+
+.card-hotel-name {
+  font-size: 20px;
+}
+
+.card-body p {
+  margin: 0px;
+}
+
+.card-text {
+  font-size: 15px;
+  color: rgb(0, 0, 0, 0.8);
+}
+
+.trending-badge {
+  position: absolute;
+  border-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

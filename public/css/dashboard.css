@@ -1,0 +1,208 @@
+.nav-item-admin {
+  color: #ff385c;
+}
+
+.navbar {
+  box-shadow: 0px 3px 10px rgb(214, 214, 214);
+}
+
+.greeting-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 8px rgb(146, 146, 146);
+  margin-top: 25px;
+  padding: 0px 50px;
+  border-radius: 10px;
+}
+
+.greeting-heading {
+  font-size: 2.8rem;
+  font-weight: 700;
+}
+
+.sub-heading {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.greeting-text {
+  letter-spacing: 1px;
+}
+
+.hotel-info-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 25px;
+  box-shadow: 0px 2px 8px rgb(146, 146, 146);
+  padding: 25px 50px 25px 50px;
+  border-radius: 10px;
+  height: 250px;
+}
+
+.hotel-carousel {
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.carousel-indicators button {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+}
+
+.hotel-name {
+  font-weight: 700;
+}
+
+.content-div {
+  display: flex;
+  margin-top: 25px;
+}
+
+.item {
+  box-shadow: 0px 2px 8px rgb(146, 146, 146);
+  border-radius: 10px;
+  padding: 25px 50px 25px 50px;
+}
+
+.item-1 {
+  width: 60%;
+  margin-right: 25px;
+}
+
+.item-2 {
+  width: 40%;
+}
+
+.no-rooms-div {
+  text-align: center;
+}
+
+.no-rooms-div a {
+  color: rgb(0, 157, 255, 0.8);
+  text-decoration: underline;
+}
+
+.no-rooms-div a:hover {
+  color: rgb(0, 157, 255, 1);
+}
+
+.custom-card {
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+a {
+  text-decoration: none;
+  color: #222222;
+}
+
+.heading-btn {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.card-text {
+  letter-spacing: 0.6px;
+  font-size: 14px;
+}
+
+.icon {
+  margin-left: 6px;
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.footer-icon {
+  color: #ff385c;
+}
+
+.footer-btn:hover {
+  background-color: rgb(255, 56, 92, 0.2);
+}
+
+.footer-btn:focus {
+  border: none;
+}
+
+.time {
+  font-size: 14px;
+  margin: 0px;
+}
+
+hr {
+  margin: 0px 0px 10px;
+}
+
+.count-container {
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.count-div {
+  width: 50%;
+  text-align: center;
+  position: relative;
+}
+
+.circle {
+  position: absolute;
+  left: 95px;
+  bottom: 29px;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 56, 92, 0.7) 0%,
+    rgba(255, 56, 92, 0.4) 35%,
+    rgba(255, 56, 92, 0.2) 40%
+  );
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: circleEffect 2s infinite alternate ease-in-out;
+}
+
+@keyframes circleEffect {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.3);
+  }
+}
+
+.count-div h3 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.count-div p {
+  margin-bottom: 0px;
+  font-weight: 600;
+}
+
+.no-bookings-div {
+  width: fit-content;
+  margin: auto;
+  padding: 0px 10px;
+  background-color: rgb(255, 56, 92, 0.2);
+}
+
+.booking-link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.booking-div {
+  border: 1px solid rgba(79, 79, 79, 0.2);
+  box-shadow: 0px 2px 10px rgba(79, 79, 79, 0.2);
+  border-radius: 7px;
+  padding: 20px;
+}

@@ -1,0 +1,29 @@
+body {
+  background-image: url("../assets/admin-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.nav-item-admin {
+  color: #ff385c;
+}
+
+.admin-container {
+  width: 61%;
+  margin: 120px auto;
+  text-align: center;
+}
+.admin-container h1 {
+  font-weight: 800;
+  font-size: 3rem;
+}
+.admin-container p {
+  width: 80%;
+  margin: 20px auto;
+}
+.admin-btn {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}

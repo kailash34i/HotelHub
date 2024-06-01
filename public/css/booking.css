@@ -1,0 +1,48 @@
+.left-container {
+  width: 50%;
+}
+
+.left-container-child {
+  border: 1px solid rgba(54, 54, 54, 0.2);
+  box-shadow: 0px 2px 10px rgba(54, 54, 54, 0.2);
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.left-container-child h4 {
+  font-weight: 600;
+}
+
+.sm-text {
+  font-size: 13px;
+}
+
+.lg-text {
+  font-size: 21px;
+  font-weight: 600;
+  color: #0000ff;
+}
+
+.rating-badge {
+  font-size: 10px;
+}
+
+.price-text {
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.icon-text {
+  font-size: 16px;
+  color: #0000ff;
+  font-weight: 600;
+}
+
+.right-container {
+  border: 1px solid rgba(54, 54, 54, 0.2);
+  box-shadow: 0px 2px 10px rgba(54, 54, 54, 0.2);
+  border-radius: 15px;
+  padding: 15px 30px;
+  height: fit-content;
+  width: 320px;
+}

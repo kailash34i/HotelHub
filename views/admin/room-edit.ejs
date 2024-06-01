@@ -1,0 +1,85 @@
+<% layout("layouts/boilerplate.ejs") %>
+<link rel="stylesheet" href="/css/setup.css" />
+
+<div class="container mt-3">
+  <div class="form-heading">
+    <div>
+      <h1 class="new-heading">Edit this room information</h1>
+    </div>
+    <div>
+      <img src="/assets/edit-room.svg" height="200px" alt="image" />
+    </div>
+  </div>
+
+  <div class="form-container">
+    <form method="POST" action="/admin/room/<%= room._id %>?_method=PUT" novalidate class="needs-validation">
+      <div class="form-section mb-3">
+        <label for="input1" class="form-label mb-3">
+          <h5 class="custom-label">Room type</h5>
+        </label>
+        <input type="text" class="form-control custom-input" id="input1" name="room[roomType]" value="<%= room.roomType %>" required />
+        <div class="invalid-feedback">Invalid title</div>
+      </div>
+
+      <div class="group-input">
+
+        <div class="form-section mb-3 item">
+          <label for="input3" class="form-label mb-3">
+            <h5 class="custom-label">Number of guests<i class="fa-solid fa-people-group new-icon"></i></h5>
+          </label>
+          <input type="number" id="input3" class="form-control custom-input" name="room[guest]" value="<%= room.guest %>" required />
+          <div class="invalid-feedback">Invalid guests number</div>
+        </div>
+
+        <div class="form-section mb-3 item">
+          <label for="input4" class="form-label mb-3">
+            <h5 class="custom-label">Number of bedrooms <i class="fa-solid fa-bed new-icon"></i></h5>
+          </label>
+          <input type="number" id="input4" class="form-control custom-input" name="room[bedroom]" value="<%= room.bedroom %>" required />
+          <div class="invalid-feedback">Invalid bedrooms number</div>
+        </div>
+
+        <div class="form-section mb-3 item">
+          <label class="form-label mb-3" for="inputGroupSelect01">
+            <h5 class="custom-label">Bed type<img src="/assets/bed.png" class="mx-2" alt="bed-image" height="25px" /></h5>
+          </label>
+          <select class="form-select custom-input" id="inputGroupSelect01" name="room[bed]" required>
+            <!-- Logic to select bed option -->
+            <% let bedType = room.bed %>
+            <option selected>Choose...</option>
+            <% const bed_options = ["Single Bed", "Double Bed", "Queen Bed","King Bed", "Twin Beds"]; %>
+            <% for (let option of bed_options) { %>
+            <% if (option === bedType) { %>
+            <option selected value="<%= option %>"><%= option %></option>
+            <% } else { %>
+            <option value="<%= option %>"><%= option %></option>
+            <% } %>
+            <% } %>
+          </select>
+          <div class="invalid-feedback">Invalid bed type</div>
+        </div>
+      </div>
+
+      <div class="form-section mb-3 item">
+        <label for="input6" class="form-label mb-3">
+          <h5 class="custom-label">Price<i class="fa-solid fa-indian-rupee-sign new-icon"></i></h5>
+        </label>
+        <div class="input-group">
+          <span class="input-group-text" id="basic-addon1"><b>Rs.</b></span>
+          <input type="number" id="input6" class="form-control price-input" name="room[price]" value="<%= room.price %>" required />
+          <span class="input-group-text" id="basic-addon1"><b>per night</b></span>
+        </div>
+        <div class="invalid-feedback">Invalid price</div>
+      </div>
+
+      <div class="new-btn-div">
+        <button type="submit" class="btn btn-lg hotelhub-btn-red">
+          Edit this room
+        </button>
+        <a class="btn btn-lg btn-outline-dark" href="/admin/dashboard">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/validation.js"></script>
