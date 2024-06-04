@@ -1,4 +1,5 @@
-//------------ Express Setup -------------
+
+console.log("Hello World");//------------ Express Setup -------------
 
 const express = require("express");
 const app = express();
