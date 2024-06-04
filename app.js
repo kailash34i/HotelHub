@@ -1,4 +1,3 @@
-console.log("Hello World.");
 //------------ Express Setup -------------
 
 const express = require("express");
